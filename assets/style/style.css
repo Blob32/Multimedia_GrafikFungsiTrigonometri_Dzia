@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+:root{
+  --prim-font: 'Baloo 2', sans-serif;
+  --sec-font: 'Poppins', sans-serif;
+  --dark: #0B0017;
+  --light: #F2E7FE;
+  --prim-color: #2A0860;
+  --sec-color: #9360C2;
+  --ac-color: #30FFBC;
+  --txt-col: #494949;
+  --txt-norm: #0f001e;
+}
+
+*{
+  font-family: var(--prim-font);
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar{
+  width: 0;
+  background: transparent;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: var(--prim-font);
+    font-weight: bold;
+}
+
+p, span{
+    font-family: var(--sec-font);
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: var(--sec-font);
+  font-size: 1rem;
+  transition: all ease-in 0.25s;
+}
+body{
+  background-color: var(--light);
+}
+  h1, h2, h3{color: var(--txt-norm); font-family: var(--prim-font)}
+  p, ul, li{color: var(--txt-norm);}
+  /* ////////////////////////////////////// */
+  
+  /* ///Style untuk navigasi /// */
+nav{
+  position: fixed;
+  top: -1px;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 20px;
+  backdrop-filter: blur(17px) saturate(128%);
+  -webkit-backdrop-filter: blur(17px) saturate(128%);
+  background-color: #ffffff42;
+  border: 1px solid #ffffff81;
+  z-index: 2;
+}
+nav .logo{padding: 5px 10px;}
+nav .logo svg{width: 150px;}
+nav .ig, .ig{
+  padding: 7px 20px;
+  background-color: var(--prim-color);
+  color: var(--light);
+  border-radius: 20px;
+}
+nav .menu{
+  position: absolute;
+  /* top: 0; */
+  right: 0;
+  left: 0;
+  width: 50%;
+  margin: 0 auto;
+}
+nav ul{
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  justify-content: center;
+}
+nav ul li{
+  /* margin: 10px; */
+  border-radius: 4px;
+}
+nav ul li a{
+  position: relative;
+  display: block;
+  width: 100%;
+  color: var(--txt-col);
+  font-weight: 600;
+  padding: 10px 20px;
+}
+nav ul li a::before{
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  height: 3px;
+  left: 20px;
+  right: 20px;
+  background-color: var(--prim-color);
+  transform: scale(0);
+  transition: all 0.2s linear;
+  border-radius: 8px;
+}
+nav ul li a:hover::before{
+  transform: scale(1);
+}
+nav ul li a:hover{
+  color: #051825;
+}
+  /* ////////////////////////////////////// */
+  
+  /* /// Style untuk menu hamburger /// */
+nav .open-menu {
+  margin: 10px 20px;
+  display: none;
+  flex-direction: column;
+  height: 20px;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+nav .open-menu input {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  opacity: 0;
+  left: -14px;
+  top: -15px;
+  cursor: pointer;
+  z-index: 11;
+}
+nav .open-menu span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  margin: 0px;
+  background-color: #2b3a67;
+  border-radius: 30px;
+  transition: all 0.5s;
+}
+  /* animasi ketika button(input) aktif */
+nav .open-menu span:nth-child(2) {
+  transform-origin: 0 0;
+}
+nav .open-menu span:nth-child(4) {
+  transform-origin: 0 100%;
+}
+nav .open-menu input:checked ~ span:nth-child(2) {
+  transform: rotate(45deg) translate(3px, -4px);
+}
+nav .open-menu input:checked ~ span:nth-child(3) {
+  transform: scale(0);
+}
+nav .open-menu input:checked ~ span:nth-child(4) {
+  transform: rotate(-45deg) translate(2px, 5px);
+}
+  /* ////////////////////////////////////// */
+
+/* MAIN */
+#main-title{
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#main-title .title{
+  font-weight: 800;
+  font-size: 4.5rem;
+  color: var(--prim-color);
+}
+
+.animate-bub { 
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden; 
+}
+.bu, .circle-deco { position: absolute; 
+  bottom: -100px; 
+  animation: bubbleFloat 20s infinite ease-in-out; 
+  will-change: transform, opacity; 
+}
+.circle-deco { width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  background: #5d487a96; 
+  backdrop-filter: blur(4px); 
+}
+@keyframes bubbleFloat { 
+  0% { 
+    transform: translateY(0) scale(0.3) rotate(0deg); 
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5; 
+  } 
+  50% { 
+    transform: translateY(-50vh) scale(1) rotate(180deg); 
+    opacity: 0.8; 
+  } 
+  90% { 
+    opacity: 0.5; 
+  } 
+  100% { 
+    transform: translateY(-120vh) scale(2.5) rotate(360deg); 
+    opacity: 0; 
+  } 
+}
