@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simulasi Grafik Fungsi Trigonometri</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    /* Variabel Warna (Ubah di sini untuk menyesuaikan tema web Anda) */
+:root {
+  --primary-color: #007bff; /* Biru cerah */
+  --track-color: #e9ecef;   /* Abu-abu muda untuk track slider */
+  --bg-color: #ffffff;      /* Warna latar belakang kartu */
+  --text-color: #343a40;   /* Warna teks utama */
+  --text-light: #6c757d;  /* Warna teks sekunder */
+  --border-color: #dee2e6; /* Warna border */
+}
+
+
+
+
+
+.simulator-container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: var(--bg-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+}
+
+.simulator-header h2 {
+  color: var(--text-color);
+  margin-top: 0;
+}
+
+.simulator-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.simulator-body {
+  display: grid;
+  grid-template-columns: 320px 1fr; /* Kolom kontrol 320px, sisanya untuk grafik */
+  gap: 30px;
+}
+
+.controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Jarak antar grup kontrol */
+}
+
+.control-group {
+  width: 100%;
+}
+
+.control-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.value-display {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: center;
+}
+
+#graph-container {
+  min-height: 400px; /* Pastikan ada ruang untuk grafik */
+  border-radius: 12px;
+  overflow: hidden; /* Agar grafik tidak keluar dari border radius */
+}
+
+/* === Styling Slider Kustom === */
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--track-color);
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.custom-slider:hover {
+  opacity: 1;
+}
+
+/* Thumb (Gagang Slider) untuk Webkit/Blink (Chrome, Safari, Edge) */
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  margin-top: -6px; /* Menyesuaikan posisi vertikal thumb */
+}
+
+/* Thumb (Gagang Slider) untuk Firefox */
+.custom-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* === Desain Responsif untuk Layar Kecil (HP) === */
+@media (max-width: 900px) {
+  .simulator-body {
+    grid-template-columns: 1fr; /* Ubah jadi satu kolom */
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- <h2>Simulasi Grafik y = a sin(bx + c) + d</h2>
+  <label>a (amplitudo): <input type="range" id="aSlider" min="-5" max="5" step="0.1" value="1"></label><br>
+  <label>b (frekuensi): <input type="range" id="bSlider" min="0.1" max="5" step="0.1" value="1"></label><br>
+  <label>c (fase): <input type="range" id="cSlider" min="-10" max="10" step="0.1" value="0"></label><br>
+  <label>d (translasi vertikal): <input type="range" id="dSlider" min="-5" max="5" step="0.1" value="0"></label><br>
+  <div id="graph"></div> -->
+  <div class="simulator-container">
+  
+  <div class="simulator-header">
+    <h2>Simulasi Grafik Interaktif</h2>
+    <p>Geser slider untuk melihat bagaimana parameter <b>a, b, c,</b> dan <b>d</b> memengaruhi grafik <b>y = a sin(bx + c) + d</b> secara real-time.</p>
+  </div>
+
+  <div class="simulator-body">
+    <!-- Panel Kontrol di Kiri -->
+    <div class="controls-panel">
+      
+      <!-- Grup Kontrol untuk Amplitudo (a) -->
+      <div class="control-group">
+        <div class="control-label">
+          <label for="aSlider">Amplitudo (a)</label>
+          <span class="value-display" id="aValue">1.0</span>
+        </div>
+        <input type="range" id="aSlider" class="custom-slider" min="-5" max="5" step="0.1" value="1">
+      </div>
+      
+      <!-- Grup Kontrol untuk Frekuensi (b) -->
+      <div class="control-group">
+        <div class="control-label">
+          <label for="bSlider">Frekuensi (b)</label>
+          <span class="value-display" id="bValue">1.0</span>
+        </div>
+        <input type="range" id="bSlider" class="custom-slider" min="0.1" max="5" step="0.1" value="1">
+      </div>
+
+      <!-- Grup Kontrol untuk Pergeseran Fasa (c) -->
+      <div class="control-group">
+        <div class="control-label">
+          <label for="cSlider">Pergeseran Fasa (c)</label>
+          <span class="value-display" id="cValue">0.0</span>
+        </div>
+        <input type="range" id="cSlider" class="custom-slider" min="-10" max="10" step="0.1" value="0">
+      </div>
+
+      <!-- Grup Kontrol untuk Pergeseran Vertikal (d) -->
+      <div class="control-group">
+        <div class="control-label">
+          <label for="dSlider">Pergeseran Vertikal (d)</label>
+          <span class="value-display" id="dValue">0.0</span>
+        </div>
+        <input type="range" id="dSlider" class="custom-slider" min="-5" max="5" step="0.1" value="0">
+      </div>
+
+    </div>
+
+    <!-- Kontainer Grafik di Kanan -->
+    <div id="graph-container">
+      <div id="graph"></div>
+    </div>
+  </div>
+</div>
+  
+  <script>
+    const aSlider = document.getElementById("aSlider");
+    const bSlider = document.getElementById("bSlider");
+    const cSlider = document.getElementById("cSlider");
+    const dSlider = document.getElementById("dSlider");
+    const graphDiv = document.getElementById("graph");
+
+    function plotGraph() {
+      const a = parseFloat(aSlider.value);
+      const b = parseFloat(bSlider.value);
+      const c = parseFloat(cSlider.value);
+      const d = parseFloat(dSlider.value);
+
+      const x = [];
+      const y = [];
+      for (let i = -20; i <= 20; i += 0.1) {
+        x.push(i);
+        y.push(a * Math.sin(b * i + c) + d);
+      }
+
+      const trace = {
+        x: x,
+        y: y,
+        mode: 'lines',
+        name: 'y = a sin(bx + c) + d'
+      };
+
+      const layout = {
+        title: `Grafik y = ${a.toFixed(2)} sin(${b.toFixed(2)}x + ${c.toFixed(2)}) + ${d.toFixed(2)}`,
+        xaxis: { title: 'x' },
+        yaxis: { title: 'y' }
+      };
+
+      Plotly.newPlot(graphDiv, [trace], layout);
+    }
+
+    aSlider.oninput = bSlider.oninput = cSlider.oninput = dSlider.oninput = plotGraph;
+    plotGraph();
+  </script>
+</body>
+</html>

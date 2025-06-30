@@ -11,6 +11,8 @@
   --ac-color: #30FFBC;
   --txt-col: #494949;
   --txt-norm: #0f001e;
+  --wh: #ffffff;
+  --bc: #000000;
 }
 
 *{
@@ -27,12 +29,12 @@ body::-webkit-scrollbar{
   background: transparent;
 }
 h1, h2, h3, h4, h5, h6{
-    font-family: var(--prim-font);
-    font-weight: bold;
+  font-family: var(--prim-font);
+  font-weight: bold;
 }
 
 p, span{
-    font-family: var(--sec-font);
+  font-family: var(--sec-font);
 }
 
 *{
@@ -121,6 +123,9 @@ nav ul li a:hover::before{
 nav ul li a:hover{
   color: #051825;
 }
+nav .nav-link.active {
+    color: var(--sec); /* Warna emas */
+}
   /* ////////////////////////////////////// */
   
   /* /// Style untuk menu hamburger /// */
@@ -143,6 +148,7 @@ nav .open-menu input {
   cursor: pointer;
   z-index: 11;
 }
+
 nav .open-menu span {
   display: block;
   width: 30px;
@@ -171,25 +177,21 @@ nav .open-menu input:checked ~ span:nth-child(4) {
   /* ////////////////////////////////////// */
 
 /* MAIN */
+
 #main-title{
   width: 100%;
-  height: 100dvh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-#main-title .title{
-  font-weight: 800;
-  font-size: 4.5rem;
-  color: var(--prim-color);
-}
-
 .animate-bub { 
-  position: absolute; 
-  width: 100%; 
-  height: 100%; 
-  overflow: hidden; 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
 }
 .bu, .circle-deco { position: absolute; 
   bottom: -100px; 
@@ -221,4 +223,339 @@ nav .open-menu input:checked ~ span:nth-child(4) {
     transform: translateY(-120vh) scale(2.5) rotate(360deg); 
     opacity: 0; 
   } 
+}
+
+#main-title .title{
+  width: 100%;
+  height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#main-title .title h1{
+  font-weight: 800;
+  color: var(--prim-color);
+  font-size: 4.5rem;
+}
+
+
+#main-title #pendahuluan{
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  position: relative;
+  align-items: center;
+}
+
+#main-title #pendahuluan img{
+  width: 40%;
+}
+#main-title #pendahuluan .txt{
+  width: 40%;
+  background-color: var(--light);
+  padding: 20px 20px 40px;
+  box-shadow: 0 0 3px #000000e3;
+  height: auto;
+  border-radius: 12px;
+}
+
+#main-title #pendahuluan .txt p{
+  margin: 0 0 40px;
+}
+#main-title #pendahuluan .txt a{
+  background-color: var(--ac-color);
+  padding: 10px 20px;
+  border-radius: 32px;
+  /* margin: 20px; */
+  transition: all 0.25s ease-in;
+}
+#main-title #pendahuluan .txt a:hover{
+  background-color: var(--sec-color);
+  color: var(--light);
+}
+
+#belajar{
+  /* background-color: var(--light); */
+  /* height: 100dvh; */
+  height: auto;
+  /* width: 100%; */
+  z-index: 1;
+  position: relative;
+  padding: 10px;
+  margin: 32px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+#belajar div{
+  backdrop-filter: blur(17px) saturate(128%);
+  -webkit-backdrop-filter: blur(17px) saturate(128%);
+  background-color: #ffffff42;
+  border: 1px solid #ffffff81;
+  box-shadow: 0 0 5px #25252554;
+  padding: 24px;
+  margin: 20px 0;
+  width: 75%;
+  border-radius: 12px;
+}
+#belajar h1{
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+#belajar h2{
+  font-size: 1.5rem;
+}
+#belajar .grafik img{width: 80%;}
+#belajar .jenis img{width: 50%; margin: 10px ;}
+/* #simulasi, #referensi */
+
+
+.simulator-container {
+  position: relative;
+  max-width: 1200px;
+  padding: 30px;
+  backdrop-filter: blur(17px) saturate(128%);
+  -webkit-backdrop-filter: blur(17px) saturate(128%);
+  background-color: #ffffff42;
+  border: 1px solid #ffffff81;
+  box-shadow: 0 0 5px #25252554;
+  padding: 32px;
+  margin: 20px auto;
+  width: 75%;
+  border-radius: 12px;
+}
+
+.simulator-header h2{
+  font-size: 1.5rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.simulator-header p{
+  margin-bottom: 30px;
+}
+
+.simulator-body {
+  display: grid;
+  grid-template-columns: 320px 1fr; /* Kolom kontrol 320px, sisanya untuk grafik */
+  gap: 30px;
+}
+
+.controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Jarak antar grup kontrol */
+}
+
+.control-group {
+  width: 100%;
+}
+
+.control-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.value-display {
+  background-color: var(--prim-color);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: center;
+}
+
+#graph-container {
+  min-height: 400px; /* Pastikan ada ruang untuk grafik */
+  border-radius: 12px;
+  overflow: hidden; /* Agar grafik tidak keluar dari border radius */
+}
+
+/* === Styling Slider Kustom === */
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--ac-color);
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.custom-slider:hover {
+  opacity: 1;
+}
+
+/* Thumb (Gagang Slider) untuk Webkit/Blink (Chrome, Safari, Edge) */
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--prim-color);
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  margin-top: -6px; /* Menyesuaikan posisi vertikal thumb */
+}
+
+/* Thumb (Gagang Slider) untuk Firefox */
+.custom-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--prim-color);
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* Style untuk Kartu Kuis (Thumbnail) */
+.quiz-card {
+  max-width: 75%;
+  height: 60dvh;
+  position: relative;
+  margin: 40px auto;
+  border-radius: 15px;
+  /* overflow: hidden; */
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-info {
+  backdrop-filter: blur(17px) saturate(128%);
+  -webkit-backdrop-filter: blur(17px) saturate(128%);
+  background-color: #ffffff42;
+  border: 1px solid #ffffff81;
+  box-shadow: 0 0 5px #25252554;
+  padding: 24px;
+  margin: 20px auto;
+  width: 75%;
+  border-radius: 12px;
+}
+
+.quiz-info h1 {
+  font-weight: 800;
+  color: var(--prim-color);
+  font-size: 4.5rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.quiz-info span {
+  color: var(--txt-col);
+  font-size: 1rem;
+}
+
+.quiz-thumbnail {
+  width: 50%;
+  margin: 20px auto;
+  position: absolute;
+}
+
+
+/* Style untuk Modal Pop-up */
+.modal-overlay {
+  position: fixed; /* Tetap di posisi yang sama bahkan saat di-scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75); /* Latar belakang gelap transparan */
+  display: none; /* Awalnya disembunyikan */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Pastikan di atas semua elemen lain */
+}
+
+.modal-content {
+  background-color: white;
+  width: 90%;
+  height: 85%;
+  max-width: 1000px; /* Lebar maksimum modal */
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  position: relative; /* Diperlukan untuk posisi tombol close */
+  padding: 15px; /* Beri sedikit ruang di sekitar iframe */
+  display: flex; /* Untuk membuat iframe mengisi ruang */
+}
+
+.close-button {
+  position: absolute;
+  top: -15px; /* Posisikan sedikit di luar atas */
+  right: -15px; /* Posisikan sedikit di luar kanan */
+  background-color: white;
+  color: #333;
+  font-size: 28px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Membuatnya bulat */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  line-height: 1;
+}
+
+.close-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Style untuk Iframe di dalam Modal */
+.modal-content iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+/* /// Style untuk footer /// */
+footer {
+  clear: both;
+  position: relative;
+  background-color: var(--dark);
+  color: var(--light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px;
+  margin-top: 40px;
+  text-align: center;
+}
+footer p{color: inherit;}
+.sosial {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.sosial a {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 0 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  color: #F8F4EF;
+  cursor: pointer;
 }
