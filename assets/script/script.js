@@ -101,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const navbar = document.getElementById('navbar');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const header = document.getElementById('header');
-    const Links = document.querySelectorAll('.nav-link[href^="#"]');
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    // const header = document.getElementById('header');
+    // const Links = document.querySelectorAll('.nav-link[href^="#"]');
     const sections = document.querySelectorAll('main section[id]');
 
     menuToggle.addEventListener('click', () => {
@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollPosition = window.scrollY;
 
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 150; 
+            const sectionTop = section.offsetTop - 90; 
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
-            const correspondingLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            const correspondingLink = document.querySelector(`a[href="#${sectionId}"]`);
 
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 navLinks.forEach(link => link.classList.remove('active'));
